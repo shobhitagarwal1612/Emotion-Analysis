@@ -77,6 +77,7 @@ def ParseReviews(url, asin):
         reviews_list.append(review_dict)
 
     data = {
+        'total_ratings' : total_ratings,
         'ratings': ratings_dict,
         'reviews': reviews_list,
         'url': amazon_url,

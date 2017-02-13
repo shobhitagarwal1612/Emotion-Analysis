@@ -4,20 +4,19 @@
 import json
 from time import sleep
 
-import requests
 from bs4 import BeautifulSoup
 
 
 ###review page
-def ParseReviews(url, asin):
+def ParseReviews(url, asin, page):
     # This script has only been tested with Amazon.com
     amazon_url = 'http://' + url + '/product-reviews/' + asin
     # Add some recent user agent to prevent amazon from blocking the request
     # Find some chrome user agent strings  here https://udger.com/resources/ua-list/browser-detail?browser=Chrome
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 '
-                      'Safari/537.36'}
-    page = requests.get(amazon_url, headers=headers).text
+    # headers = {
+    #     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 '
+    #                   'Safari/537.36'}
+    # page = requests.get(amazon_url, headers=headers).text
 
     soup = BeautifulSoup(page, 'lxml')
     XPATH_PRODUCT_NAME = soup.select_one('.a-link-normal')
@@ -78,13 +77,13 @@ def ParseReviews(url, asin):
     return data
 
 
-def ReadAsin(domain, asin):
+def ReadAsin(domain, asin, page, count):
     # Add your own ASINs here
     extracted_data = []
     print("Downloading and processing page http://" + domain + "/product-reviews/" + asin)
-    extracted_data.append(ParseReviews(domain, asin))
+    extracted_data.append(ParseReviews(domain, asin, page))
     sleep(5)
-    f = open('amazon_data.json', 'w')
+    f = open('amazon_data_%d.json' % count, 'w')
     json.dump(extracted_data, f, indent=4)
 
 

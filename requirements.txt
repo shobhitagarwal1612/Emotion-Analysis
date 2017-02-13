@@ -3,7 +3,6 @@ attrs==16.3.0
 beautifulsoup4==4.5.3
 cffi==1.9.1
 Django==1.10.5
-httplib2==0.10.3
 idna==2.2
 lxml==3.7.2
 packaging==16.8

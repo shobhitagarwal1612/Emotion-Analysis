@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 # Written as part of https://www.scrapehero.com/how-to-scrape-amazon-product-reviews-using-python/
 import json
-import re
 from time import sleep
 
 import requests
 from bs4 import BeautifulSoup
-from lxml import html
 
 
 ###review page
@@ -20,13 +18,6 @@ def ParseReviews(url, asin):
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 '
                       'Safari/537.36'}
     page = requests.get(amazon_url, headers=headers).text
-
-    # parser = html.fromstring(page)
-    # XPATH_AGGREGATE = '//span[@id="acrCustomerReviewText"]'
-    # XPATH_REVIEW_SECTION = '//div[@id="revMHRL"]/div'
-    # XPATH_AGGREGATE_RATING = '//table[@id="histogramTable"]//tr'
-    # XPATH_PRODUCT_NAME = '//h1//span[@id="productTitle"]//text()'
-    # XPATH_PRODUCT_PRICE = '//span[@id="priceblock_ourprice"]/text()'
 
     soup = BeautifulSoup(page, 'lxml')
     XPATH_PRODUCT_NAME = soup.select_one('.a-link-normal')
@@ -77,7 +68,7 @@ def ParseReviews(url, asin):
         reviews_list.append(review_dict)
 
     data = {
-        'total_ratings' : total_ratings,
+        'total_ratings': total_ratings,
         'ratings': ratings_dict,
         'reviews': reviews_list,
         'url': amazon_url,
@@ -90,10 +81,10 @@ def ParseReviews(url, asin):
 def ReadAsin(domain, asin):
     # Add your own ASINs here
     extracted_data = []
-    print("Downloading and processing page http://" + domain + "/dp/" + asin)
+    print("Downloading and processing page http://" + domain + "/product-reviews/" + asin)
     extracted_data.append(ParseReviews(domain, asin))
     sleep(5)
-    f = open('data.json', 'w')
+    f = open('amazon_data.json', 'w')
     json.dump(extracted_data, f, indent=4)
 
 
@@ -106,9 +97,8 @@ def get_domain(url):
 
 
 if __name__ == '__main__':
-    url = 'http://www.amazon.in/IZINC-Hooded-Sleeve-Cotton-T-Shirt/dp/B013WP1RDI/ref=pd_rhf_dp_s_cp_3?_encoding=UTF8' \
-          '&pd_rd_i=B013WP1RDI&pd_rd_r=1J8D15T1FTNBY5NRA064&pd_rd_w=yTCw1&pd_rd_wg=npkkg&psc=1&refRID' \
-          '=1J8D15T1FTNBY5NRA064 '
+    url = 'http://www.amazon.in/Fostelo-Womens-Style-Shoulder-FSB-396/dp/B00Z0NMFKU/ref=sr_1_4?s=shoes&rps=1&ie=UTF8' \
+          '&qid=1486955427&sr=1-4 '
     domain = get_domain(url)
     asin = get_asin(url)
 

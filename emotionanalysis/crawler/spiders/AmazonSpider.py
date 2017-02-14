@@ -66,7 +66,7 @@ def ParseReviews(url, asin, page):
 
         review_dict = {
             'review_text': raw_review_text,
-            # 'review_posted_date': raw_review_posted_date,
+            'review_posted_date': raw_review_posted_date,
             'review_header': raw_review_header,
             'review_rating': review_rating,
             'review_author': raw_review_author
@@ -80,7 +80,7 @@ def ParseReviews(url, asin, page):
         # 'reviews': reviews_list,
         'url': amazon_url,
         'price': product_price,
-        # 'name': product_name
+        'name': product_name
     }
     return data, reviews_list
 
@@ -106,9 +106,8 @@ class Item(scrapy.Item):
 
 
 class AmazonSpider(scrapy.Spider):
-    url = 'http://www.amazon.in/Generic-Mount-Adapter-Tripod-Hotshoe/dp/B011EG2NLW/ref=pd_rhf_dp_s_cp_4?_encoding' \
-          '=UTF8&pd_rd_i=B011EG2NLW&pd_rd_r=08ZWPHJB51Q1FWDZB6S1&pd_rd_w=a85WB&pd_rd_wg=DVxgT&psc=1&refRID' \
-          '=08ZWPHJB51Q1FWDZB6S1 '
+    url = 'http://www.amazon.in/HiFiMAN-HE1000-Over-Ear-Reference-Headphones/dp/B00Y9XT3SE/ref=sr_1_1?s=electronics' \
+          '&ie=UTF8&qid=1487048416&sr=1-1 '
     page = 1
     domain = get_domain(url)
     base_url = 'http://' + domain
@@ -140,7 +139,7 @@ class AmazonSpider(scrapy.Spider):
             print('No more pages found')
             self.stop = True
 
-        if not self.stop and self.page < 10:
+        if not self.stop and self.page < 5:
             next_link = self.base_url + next_link
             self.start_urls.append(next_link)
             yield scrapy.Request(url=next_link, headers=self.headers, callback=self.parse)

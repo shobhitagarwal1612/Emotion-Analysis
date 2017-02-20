@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>BugMeNot: share logins</title>
+    <meta name="description"
+          content="Access and share logins for websites that require you to register in order to view content.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bmn.css' %}">
+    <link rel="shortcut icon" href="http://bugmenot.com/favicon.ico">
+    <script>try {
+        for (var lastpass_iter = 0; lastpass_iter < document.forms.length; lastpass_iter++) {
+            var lastpass_f = document.forms[lastpass_iter];
+            if (typeof(lastpass_f.lpsubmitorig) == "undefined") {
+                if (typeof(lastpass_f.submit) == "function") {
+                    lastpass_f.lpsubmitorig = lastpass_f.submit;
+                    lastpass_f.submit = function () {
+                        var form = this;
+                        try {
+                            if (document.documentElement && 'createEvent' in document) {
+                                var forms = document.getElementsByTagName('form');
+                                for (var i = 0; i < forms.length; ++i)                if (forms[i] == form) {
+                                    var element = document.createElement('lpformsubmitdataelement');
+                                    element.setAttribute('formnum', i);
+                                    element.setAttribute('from', 'submithook');
+                                    document.documentElement.appendChild(element);
+                                    var evt = document.createEvent('Events');
+                                    evt.initEvent('lpformsubmit', true, false);
+                                    element.dispatchEvent(evt);
+                                    break;
+                                }
+                            }
+                        } catch (e) {
+                        }
+                        try {
+                            form.lpsubmitorig();
+                        } catch (e) {
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {
+    }</script>
+</head>
+<body>
+<div id="page">
+    <header>
+        <div class="inner">
+            <a id="logo" title="Return to BugMeNot homepage" href="http://bugmenot.com/"><img
+                    src="{% static 'images/logo.png' %}" alt="BugMeNot"></a>
+            <form class="search_form">
+                <input name="search_query" id="search_query" placeholder="Enter domain or url..." type="text">
+                <button id="search_button"><span>Get Logins</span></button>
+            </form>
+        </div>
+    </header>
+    <div id="content"><h1>BugMeNot: find and share logins</h1>
+        <p>Enter a website below to see if the bugmenot community has shared any logins for it...</p>
+        <form class="search_form">
+            <label for="search_query">Domain/URL:</label>
+            <input name="search_query" id="search_query" type="text">
+            <button id="search_button"><span>Get Logins</span></button>
+        </form>
+        <div style="margin-top:50px;"></div>
+    </div>
+</div>
+<footer>
+    <ul>
+        <li><a href="http://bugmenot.com/terms.php">Terms Of Use</a></li>
+        <li><a href="http://bugmenot.com/removal.php">Removal</a></li>
+        <li><a href="http://trendsmap.com/">Twitter Trends</a></li>
+        <li><a href="http://cushycms.com/">Easy CMS</a></li>
+        <li><a href="http://lifx.co/">Wifi Light Bulb</a></li>
+    </ul>
+</footer>
+
+<script async="" src="{% static 'js/analytics.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bmn.js' %}"></script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-47291280-1', 'bugmenot.com');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>

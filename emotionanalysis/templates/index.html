@@ -9,40 +9,6 @@
     <link rel="stylesheet" href="{% static 'css/css.css' %}">
     <link rel="stylesheet" href="{% static 'css/bmn.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
-    <script>try {
-        for (var lastpass_iter = 0; lastpass_iter < document.forms.length; lastpass_iter++) {
-            var lastpass_f = document.forms[lastpass_iter];
-            if (typeof(lastpass_f.lpsubmitorig) == "undefined") {
-                if (typeof(lastpass_f.submit) == "function") {
-                    lastpass_f.lpsubmitorig = lastpass_f.submit;
-                    lastpass_f.submit = function () {
-                        var form = this;
-                        try {
-                            if (document.documentElement && 'createEvent' in document) {
-                                var forms = document.getElementsByTagName('form');
-                                for (var i = 0; i < forms.length; ++i)                if (forms[i] == form) {
-                                    var element = document.createElement('lpformsubmitdataelement');
-                                    element.setAttribute('formnum', i);
-                                    element.setAttribute('from', 'submithook');
-                                    document.documentElement.appendChild(element);
-                                    var evt = document.createEvent('Events');
-                                    evt.initEvent('lpformsubmit', true, false);
-                                    element.dispatchEvent(evt);
-                                    break;
-                                }
-                            }
-                        } catch (e) {
-                        }
-                        try {
-                            form.lpsubmitorig();
-                        } catch (e) {
-                        }
-                    }
-                }
-            }
-        }
-    } catch (e) {
-    }</script>
 </head>
 <body>
 <div id="page">
@@ -52,7 +18,7 @@
                     src="{% static 'images/logo.png' %}" alt="BugMeNot"></a>
             <form class="search_form">
                 <input name="search_query" id="search_query" placeholder="Enter domain or url..." type="text">
-                <button id="search_button"><span>Get Logins</span></button>
+                <button id="search_button"><span>Search</span></button>
             </form>
         </div>
     </header>

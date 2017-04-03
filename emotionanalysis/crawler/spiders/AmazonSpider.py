@@ -106,8 +106,8 @@ class Item(scrapy.Item):
 
 
 class AmazonSpider(scrapy.Spider):
-    url = 'http://www.amazon.in/HiFiMAN-HE1000-Over-Ear-Reference-Headphones/dp/B00Y9XT3SE/ref=sr_1_1?s=electronics' \
-          '&ie=UTF8&qid=1487048416&sr=1-1 '
+    url = 'http://www.amazon.in/Moto-Plus-4th-Gen-White/dp/B01DDP85BY/ref=sr_1_2?s=electronics&rps=1&ie=UTF8&qid' \
+          '=1487658956&sr=1-2 '
     page = 1
     domain = get_domain(url)
     base_url = 'http://' + domain

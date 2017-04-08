@@ -1,0 +1,9 @@
+<form action="{% url 'analyzer:scrape' %}" method="POST">
+    {% csrf_token %}
+
+
+    {{ form }}
+
+    <button type="button">Submit</button>
+
+</form>

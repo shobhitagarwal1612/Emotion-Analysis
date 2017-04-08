@@ -9,7 +9,7 @@ from emotionanalysis.forms import ScrapeForm
 class IndexView(View):
     http_method_names = [u'get', u'post']
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         form = ScrapeForm()
         return render(request, 'index.html', {'form': form})
 

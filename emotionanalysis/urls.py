@@ -2,9 +2,9 @@ from django.conf.urls import url
 
 from emotionanalysis.views import IndexView
 
-app_name = 'emotionanalysis'
+app_name = 'analyzer'
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='home'),
-    url(r'^search/$', IndexView.fetchComments, name='search'),
+    url(r'^scrape/$', IndexView.fetchComments, name='scrape'),
 ]

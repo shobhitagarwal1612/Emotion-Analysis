@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% load staticfiles %}
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -10,33 +11,107 @@
     <link rel="stylesheet" href="{% static 'css/bmn.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
 </head>
+
 <body>
+
+<!-- Preloader -->
+{% comment %}
+<div id="preloader">
+    <div id="status"></div>
+</div>
+{% endcomment %}
+
 <div id="page">
     <header>
         <div class="inner">
-            <a id="logo" title="Return to homepage" href="#"><img
-                    src="{% static 'images/logos.png' %}" alt="Emotion analysis"></a>
-            <form class="search_form" action="{% url 'emotionanalysis:search'%}" method="post">
-                {% csrf_token %}
-                <input name="search_query" id="search_query" placeholder="Enter domain or url..." type="text">
-                <button id="search_button" type="submit"><span>Search</span></button>
-            </form>
+
         </div>
+        <!-- NavBar-->
+        <nav class="navbar-default" role="navigation" style="margin-left: 100px; margin-right: 80px">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home" style="color: #fff; font-size: xx-large; font-weight: bold">Emotion
+                    Analysis</a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    {#<li class="menuItem"><a href="#whatis">What is?</a></li>#}
+                    <li class="menuItem"><a href="{% url 'analyzer:scrape' %}"
+                                            style="color: #fff; font-size: medium; font-weight: bold">Scrape</a></li>
+                    <li class="menuItem"><a href="/analyse/data/"
+                                            style="color: #fff; font-size: medium ;font-weight: bold">Reports</a></li>
+                </ul>
+
+            </div>
+        </nav>
+
     </header>
-    <div id="content"><h1>Emotion Analysis: comments analysis tool</h1>
+    <div id="content">
+        <h1>Emotion Analysis: Comments Analysis Tool</h1>
         <p>Enter a website below to analyse the comments for the target product</p>
-        <form class="search_form" action="{% url 'emotionanalysis:search'%}" method="post">
+        <form class="search_form" action="{% url 'analyzer:scrape' %}" method="post" id="scrape">
             {% csrf_token %}
-            <label for="search_query">Domain/URL:</label>
-            <input name="search_query" id="search_query" type="text">
-            <button id="search_button" type="submit"><span>Analyse</span></button>
+
+            <div class="form-group" id="search_query" type="text">
+                {{ form }}
+                <button id="search_button" type="submit"><span>Analyse</span></button>
+            </div>
         </form>
+        <div style="margin:100px;text-align: center">
+            <img style="height:200px;width:200px;" src="{% static "images/loading19.gif" %}" id="spinner">
+        </div>
         <div style="margin-top:50px;"></div>
     </div>
 </div>
 
 <script src="{% static 'js/jquery.js' %}"></script>
-{#<script src="{% static 'js/bmn.js' %}"></script>#}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </body>
 </html>
+{% comment %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Enter the URL of product to be analysed
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-offset-3">
+                <form class="form-horizontal" action="/scrape/data/" method="post" id="scrape">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form }}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary col-md-offset-1">Analyse</button>
+                    </div>
+                </form>
+                <img src="{% static "Images/spinner.gif" %}" id="spinner">
+            </div>
+        </div>
+    </div>
+</div>{% endcomment %}
+
+<script>
+
+    $(document).ready(function () {
+        $("#spinner").hide()
+    });
+
+    $("#scrape").submit(function (event) {
+        $("#spinner").show()
+    });
+</script>

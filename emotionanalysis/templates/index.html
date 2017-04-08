@@ -43,9 +43,9 @@
             <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     {#<li class="menuItem"><a href="#whatis">What is?</a></li>#}
-                    <li class="menuItem"><a href="{% url 'analyzer:scrape' %}"
+                    <li class="menuItem"><a href="{% url 'analyzer:home' %}"
                                             style="color: #fff; font-size: medium; font-weight: bold">Scrape</a></li>
-                    <li class="menuItem"><a href="/analyse/data/"
+                    <li class="menuItem"><a href="{% url 'analyzer:analyze' %}"
                                             style="color: #fff; font-size: medium ;font-weight: bold">Reports</a></li>
                 </ul>
 
@@ -56,7 +56,7 @@
     <div id="content">
         <h1>Emotion Analysis: Comments Analysis Tool</h1>
         <p>Enter a website below to analyse the comments for the target product</p>
-        <form class="search_form" action="{% url 'analyzer:scrape' %}" method="post" id="scrape">
+        <form class="search_form" action="{% url 'analyzer:analyze' %}" method="post" id="scrape">
             {% csrf_token %}
 
             <div class="form-group" id="search_query" type="text">
@@ -65,7 +65,7 @@
             </div>
         </form>
         <div style="margin:100px;text-align: center">
-            <img style="height:200px;width:200px;" src="{% static "images/loading19.gif" %}" id="spinner">
+            <img style="height:200px;width:200px;" src="{% static "images/loading.gif" %}" id="spinner">
         </div>
         <div style="margin-top:50px;"></div>
     </div>

@@ -6,5 +6,5 @@ app_name = 'analyzer'
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='home'),
-    url(r'^scrape/$', IndexView.fetchComments, name='scrape'),
+    url(r'^analyze/$', IndexView.fetchComments, name='analyze'),
 ]

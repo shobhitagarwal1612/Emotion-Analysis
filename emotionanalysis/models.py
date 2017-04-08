@@ -12,8 +12,9 @@ import pickle
 from django.db import models
 from nltk.corpus import movie_reviews as reviews
 
+from emotionanalysis.build import build_and_evaluate
 
-# Create your models here.
+
 class Amazon_Scrape(models.Model):
     amazon_url = models.URLField(max_length=100)
 

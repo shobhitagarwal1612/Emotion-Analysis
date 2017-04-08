@@ -2,21 +2,26 @@
 # -*- coding: utf-8 -*-
 # Written as part of https://www.scrapehero.com/how-to-scrape-amazon-product-reviews-using-python/
 import json
+import sys
 from time import sleep
 
+import requests
 from bs4 import BeautifulSoup
 
 
+def get_asin(url):
+    return url.split("/dp/")[1].split("/")[0]
+
+
+def get_domain(url):
+    return url.split("/")[2]
+
+
+# use : scrapy crawl amazon to run the spider crawler
+
 ###review page
-def ParseReviews(url, asin, page):
+def ParseReviews(page):
     # This script has only been tested with Amazon.com
-    amazon_url = 'http://' + url + '/product-reviews/' + asin
-    # Add some recent user agent to prevent amazon from blocking the request
-    # Find some chrome user agent strings  here https://udger.com/resources/ua-list/browser-detail?browser=Chrome
-    # headers = {
-    #     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 '
-    #                   'Safari/537.36'}
-    # page = requests.get(amazon_url, headers=headers).text
 
     soup = BeautifulSoup(page, 'lxml')
     XPATH_PRODUCT_NAME = soup.select_one('.a-link-normal')
@@ -39,8 +44,13 @@ def ParseReviews(url, asin, page):
     for ratings in XPATH_RATINGS_TABLE:
         extracted_rating = ratings.find_all('td')
         if extracted_rating:
-            rating_key = extracted_rating[0].a.text
-            rating_value = extracted_rating[2].a.text
+            # print(extracted_rating)
+            try:
+                rating_key = extracted_rating[0].a.text
+                rating_value = extracted_rating[2].a.text
+            except AttributeError:
+                rating_key = extracted_rating[0].span.text
+                rating_value = 0
             if rating_key:
                 ratings_dict.update({rating_key: rating_value})
 
@@ -69,36 +79,78 @@ def ParseReviews(url, asin, page):
     data = {
         'total_ratings': total_ratings,
         'ratings': ratings_dict,
-        'reviews': reviews_list,
-        'url': amazon_url,
+        # 'reviews': reviews_list,
         'price': product_price,
         'name': product_name
     }
-    return data
+    return data, reviews_list
 
 
-def ReadAsin(domain, asin, page, count):
-    # Add your own ASINs here
-    extracted_data = []
-    print("Downloading and processing page http://" + domain + "/product-reviews/" + asin)
-    extracted_data.append(ParseReviews(domain, asin, page))
-    sleep(5)
-    f = open('amazon_data_%d.json' % count, 'w')
-    json.dump(extracted_data, f, indent=4)
+page_count = 1
+url = sys.argv[1]
+domain = get_domain(url)
+asin = get_asin(url)
+base_url = 'http://' + domain
+start_urls = [base_url + '/product-reviews/' + asin]
+reviews = []
+stop = False
+
+# Add some recent user agent to prevent amazon from blocking the request
+headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 '
+                  'Safari/537.36'}
 
 
-def get_asin(url):
-    return url.split("/dp/")[1].split("/")[0]
+def start_requests(url):
+    global stop, next_link, page_count
+    sleep(3)
+    response = requests.get(url, headers=headers).text
+    print('--------------------------')
+
+    parsed_data, review_list = ParseReviews(response)
+    reviews.extend(review_list)
+
+    page_count += 1
+    soup = BeautifulSoup(response, 'lxml')
+    try:
+        next_link = soup.find('li', class_='a-last').find('a')['href']
+    except TypeError:
+        print('No more pages found')
+        stop = True
+
+    if not stop and page_count < 4:
+        next_link = base_url + next_link
+        start_urls.append(next_link)
+    else:
+        parsed_data['reviews'] = reviews
+        f = open('amazon_data.json', 'w')
+        json.dump(parsed_data, f, indent=4)
+        f.close()
 
 
-def get_domain(url):
-    return url.split("/")[2]
+def save_product_details():
+    response = requests.get(url=url, headers=headers).text
+    soup = BeautifulSoup(response, 'lxml')
+    product_image = soup.select_one('#landingImage')['src']
+    img = str.replace(product_image, "\r", "")
+    img = str.replace(img, "\n", "")
+    img='[1] "' + img + '"'
+    output = open("imageData.txt", "wb")
+    output.write(img)
+    output.close()
+
+    product_details = soup.select('.col1 td')
+    output = open("specs.txt", "wb")
+    for row in product_details:
+        output.write(row.text+"\n")
+    output.close()
+
+    print ("details saved")
 
 
-if __name__ == '__main__':
-    url = 'http://www.amazon.in/Fostelo-Womens-Style-Shoulder-FSB-396/dp/B00Z0NMFKU/ref=sr_1_4?s=shoes&rps=1&ie=UTF8' \
-          '&qid=1486955427&sr=1-4 '
-    domain = get_domain(url)
-    asin = get_asin(url)
+save_product_details()
 
-    ReadAsin(domain, asin)
+for url in start_urls:
+    start_requests(url)
+
+print ('Parsing complete')

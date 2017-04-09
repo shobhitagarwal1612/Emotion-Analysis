@@ -1,12 +1,12 @@
 import json
 import os
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from analyzer.forms import ScrapeForm
+from analyzer.forms import ScrapeForm, NewSpec
 from analyzer.models import Amazon_Scrape, Amazon_Analyse
 
 
@@ -53,7 +53,7 @@ class IndexView(View):
         imageFile = open(os.getcwd() + "/imageData.txt", "r")
         base64 = imageFile.read()
 
-        form = ScrapeForm()
+        form = NewSpec()
         specs_list = []
         p = []
         f = open('specs.txt')
@@ -77,7 +77,7 @@ class IndexView(View):
             else:
                 negative += 1
 
-        comments_list={}
+        comments_list = {}
         for spec in list(comments):
             comments_list[spec] = comments[spec]
 
@@ -94,3 +94,29 @@ class IndexView(View):
                        'negative_sentiment': negative,
                        }
                       )
+
+    def analyse_newspec(request):
+        if request.method == 'POST' and request.is_ajax:
+            form = NewSpec(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            # name_obj = Amazon_Url.objects.create(url=form.cleaned_data['url'] )
+            spec = form.cleaned_data['spec']
+            print(spec)
+            qq = Amazon_Analyse()
+            value, comments = qq.Amazon_spec(spec)
+            # print 'Url is', url
+            print('value is', value)
+
+            data = {
+                'heading': spec,
+                'value': value,
+                'comments_spec': comments,
+            }
+
+            return JsonResponse(data, safe=False)
+
+        print('not sent')

@@ -66,7 +66,7 @@
 <br>
 <div class="col-md-offset-1">
 
-    <form class="form-inline" id="custom-spec" action="/analyse/newspec/" method="post">
+    <form class="form-inline" id="custom-spec" action="{% url 'analyzer:newspec' %}" method="post">
         {% csrf_token %}
         <label>Enter your own specification</label>
         <div class="form-group">
@@ -252,7 +252,7 @@
 
             e.preventDefault();
 
-            var url = "/analyse/newspec/";
+            var url = "/newspec/";
 
             $.ajax({
                 type: 'POST',
@@ -268,7 +268,7 @@
                     $("#custom-spec-btn").prop('disabled', true);
                 },
                 success: function (response) {
-                    response = JSON.parse(response);
+{#                    response = JSON.parse(response);#}
                     var heading = response.heading;
                     var comments_spec = response.comments_spec;
 

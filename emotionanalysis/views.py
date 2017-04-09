@@ -52,7 +52,7 @@ class IndexView(View):
                 p.append(line)
             # print p
             try:
-                for i in xrange(0, len(p), 2):
+                for i in range(0, len(p), 2):
                     specs_list.append((p[i], p[i + 1]))
 
                 print(specs_list)

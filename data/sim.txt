@@ -1,0 +1,9 @@
+(lp0
+(lp1
+Vno sim slot be alert during buyng
+p2
+aV1.0 
+p3
+aF0.0
+aI0
+aa.

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Written as part of https://www.scrapehero.com/how-to-scrape-amazon-product-reviews-using-python/
 import json
+import os
 import sys
 from time import sleep
 
@@ -123,7 +124,7 @@ def start_requests(url):
         start_urls.append(next_link)
     else:
         parsed_data['reviews'] = reviews
-        f = open('amazon_data.json', 'w')
+        f = open('../amazon_data.json', 'w')
         json.dump(parsed_data, f, indent=4)
         f.close()
 
@@ -135,12 +136,13 @@ def save_product_details():
     img = str.replace(product_image, "\r", "")
     img = str.replace(img, "\n", "")
     img='[1] "' + img + '"'
-    output = open("imageData.txt", "wb")
+    path = os.getcwd()
+    output = open(path + "/imageData.txt", "wb")
     output.write(img)
     output.close()
 
     product_details = soup.select('.col1 td')
-    output = open("specs.txt", "wb")
+    output = open("../specs.txt", "wb")
     for row in product_details:
         output.write(row.text+"\n")
     output.close()

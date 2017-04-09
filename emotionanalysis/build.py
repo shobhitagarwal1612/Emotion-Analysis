@@ -9,7 +9,7 @@ from sklearn.neural_network._base import identity
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder
 
-from analyse.Transformer import NLTKPreprocessor
+from emotionanalysis.Transformer import NLTKPreprocessor
 
 
 # @timeit

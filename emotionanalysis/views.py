@@ -1,10 +1,12 @@
-from django.http import HttpResponse, HttpResponseRedirect
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from emotionanalysis.forms import ScrapeForm
-from emotionanalysis.models import Amazon_Scrape
+from emotionanalysis.models import Amazon_Scrape, Amazon_Analyse
 
 
 class IndexView(View):
@@ -80,7 +82,6 @@ class IndexView(View):
                            'negative_sentiment': negative,
                            }
                           )
-
 
         product_url = request.POST.get('search_query', "")
         print("-------------" + product_url + "---------------")

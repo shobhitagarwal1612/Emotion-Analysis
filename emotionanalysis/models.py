@@ -3,13 +3,13 @@ from __future__ import print_function
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import collections
 import json
-import os
 import os.path
 import pickle
+import subprocess
 
 from django.db import models
+from nltk import collections
 from nltk.corpus import movie_reviews as reviews
 
 from emotionanalysis.build import build_and_evaluate
@@ -24,7 +24,7 @@ class Amazon_Scrape(models.Model):
 
         path = os.getcwd()
 
-        path2script = path + '/parsers/' + 'parse_amazon.py'
+        path2script = path + '/parsers/parse_amazon.py'
 
         # Variable number of args in a list
         args = [url]
@@ -33,14 +33,6 @@ class Amazon_Scrape(models.Model):
         cmd = [command, path2script] + args
         # check_output will run the command and store to result
         x = subprocess.call(cmd, universal_newlines=True)
-
-        command = 'Rscript'
-        path2script = path + '/Rscripts/' + 'scrape-data.R'
-
-        cmd = [command, path2script] + args
-        open('userReviews.txt', 'w').close()
-        # check_output will run the command and store to result
-        # x = subprocess.call(cmd, universal_newlines=True)
 
 
 class Amazon_Analyse(models.Model):
@@ -68,7 +60,8 @@ class Amazon_Analyse(models.Model):
         return net_score, data, comments_list, comments_sentiment
 
     def get_model(self):
-        filename = 'dump.pkl'
+        path = os.getcwd()
+        filename = path + '/dump.pkl'
         if os.path.isfile(filename):
             with open(filename, 'rb') as f:
                 model = pickle.load(f)
@@ -82,7 +75,7 @@ class Amazon_Analyse(models.Model):
     def generate_specification_sentiment(self, comments, comments_list, comments_sentiment, data, ratings,
                                          specs, total_score):
 
-        save_path = os.getcwd() + '/analyse/data/'
+        save_path = os.getcwd() + '/data/'
         global emotion
         for spec in specs:
             spec_comments = []
@@ -135,7 +128,8 @@ class Amazon_Analyse(models.Model):
             return data[0][1], comments_list
 
     def parse_data(self):
-        with open('amazon_data.json') as data_file:
+        path = os.getcwd()
+        with open(path + 'amazon_data.json') as data_file:
             data = json.load(data_file)
         comments = [data["reviews"][i]["review_text"] for i in range(len(data["reviews"]))]
         ratings = [data["reviews"][i]["review_rating"] for i in range(len(data["reviews"]))]

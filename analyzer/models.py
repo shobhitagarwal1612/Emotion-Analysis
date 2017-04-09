@@ -8,8 +8,8 @@ import os.path
 import pickle
 import subprocess
 
+import collections
 from django.db import models
-from nltk import collections
 from nltk.corpus import movie_reviews as reviews
 
 from analyzer.build import build_and_evaluate
@@ -85,7 +85,7 @@ class Amazon_Analyse(models.Model):
                     emotion = comments_sentiment[i]
 
                     spec_comments.append([comment, ratings[i], emotion])
-                    comments_list[spec].append([emotion, comment])
+                    comments_list[spec].append([int(emotion), comment])
 
             comments_list[spec].sort()
 
@@ -128,8 +128,7 @@ class Amazon_Analyse(models.Model):
             return data[0][1], comments_list
 
     def parse_data(self):
-        path = os.getcwd()
-        with open(path + '/amazon_data.json') as data_file:
+        with open('amazon_data.json') as data_file:
             data = json.load(data_file)
         comments = [data["reviews"][i]["review_text"] for i in range(len(data["reviews"]))]
         ratings = [data["reviews"][i]["review_rating"] for i in range(len(data["reviews"]))]

@@ -268,7 +268,7 @@
                     $("#custom-spec-btn").prop('disabled', true);
                 },
                 success: function (response) {
-{#                    response = JSON.parse(response);#}
+                    response = JSON.parse(response);
                     var heading = response.heading;
                     var comments_spec = response.comments_spec;
 

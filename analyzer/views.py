@@ -110,13 +110,16 @@ class IndexView(View):
             value, comments = qq.Amazon_spec(spec)
             # print 'Url is', url
             print('value is', value)
+            print(comments)
 
-            data = {
+            comments_list={}
+            for spec in list(comments):
+                comments_list[spec] = comments[spec]
+
+            data = json.dumps({
                 'heading': spec,
                 'value': value,
                 'comments_spec': comments,
-            }
-
+            })
             return JsonResponse(data, safe=False)
-
         print('not sent')

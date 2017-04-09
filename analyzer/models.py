@@ -12,7 +12,7 @@ from django.db import models
 from nltk import collections
 from nltk.corpus import movie_reviews as reviews
 
-from emotionanalysis.build import build_and_evaluate
+from analyzer.build import build_and_evaluate
 
 
 class Amazon_Scrape(models.Model):

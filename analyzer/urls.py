@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from emotionanalysis.views import IndexView
+from analyzer.views import IndexView
 
 app_name = 'analyzer'
 

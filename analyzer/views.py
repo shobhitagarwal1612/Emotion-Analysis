@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from emotionanalysis.forms import ScrapeForm
-from emotionanalysis.models import Amazon_Scrape, Amazon_Analyse
+from analyzer.forms import ScrapeForm
+from analyzer.models import Amazon_Scrape, Amazon_Analyse
 
 
 class IndexView(View):

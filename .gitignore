@@ -92,6 +92,7 @@ ENV/
 *.pyc
 db.sqlite3
 data/
+imageData.txt
 amazon_data.json
 specs.txt
 userReviews.txt

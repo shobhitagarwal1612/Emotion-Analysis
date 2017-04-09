@@ -50,10 +50,9 @@ class IndexView(View):
         title = f['name']
 
         # getting image data
-        with open(os.getcwd() + "/imageData.txt", "r") as imageFile:
-            base64 = imageFile.readline()
+        imageFile = open(os.getcwd() + "/imageData.txt", "r")
+        base64 = imageFile.read()
 
-        base64 = base64[3:]
         form = ScrapeForm()
         specs_list = []
         p = []
@@ -78,7 +77,7 @@ class IndexView(View):
             else:
                 negative += 1
 
-        comments = [(key,comments[key]) for key in comments]
+        comments = [(key, comments[key]) for key in comments]
 
         return render(request, 'result.html',
                       {'data': data,

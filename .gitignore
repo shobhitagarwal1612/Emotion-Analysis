@@ -91,3 +91,7 @@ ENV/
 .idea/
 *.pyc
 db.sqlite3
+data/
+amazon_data.json
+specs.txt
+userReviews.txt

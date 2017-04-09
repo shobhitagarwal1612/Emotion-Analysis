@@ -77,13 +77,9 @@ class IndexView(View):
             else:
                 negative += 1
 
-        comments_list = {}
-        for spec in list(comments):
-            comments_list[spec] = comments[spec]
-
         return render(request, 'result.html',
                       {'data': data,
-                       'comments': comments_list,
+                       'comments': dict(comments),
                        'title': title,
                        'image': base64,
                        'form': form,
@@ -111,10 +107,6 @@ class IndexView(View):
             # print 'Url is', url
             print('value is', value)
             print(comments)
-
-            comments_list={}
-            for spec in list(comments):
-                comments_list[spec] = comments[spec]
 
             data = json.dumps({
                 'heading': spec,

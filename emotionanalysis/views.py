@@ -33,7 +33,7 @@ class IndexView(View):
             q.fun(url)
             print('Url is', url)
 
-            return HttpResponseRedirect()
+            return HttpResponseRedirect('/reports')
 
         product_url = request.POST.get('search_query', "")
         print("-------------" + product_url + "---------------")
@@ -50,8 +50,9 @@ class IndexView(View):
         title = f['name']
 
         # getting image data
-        imageFile = open(os.getcwd() + "/imageData.txt")
+        imageFile = open(os.getcwd() + "/imageData.txt", "r")
         base64 = imageFile.read()
+        base64 = base64[3:]
         form = ScrapeForm()
         specs_list = []
         p = []

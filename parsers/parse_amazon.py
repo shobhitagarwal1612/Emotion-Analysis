@@ -135,10 +135,9 @@ def save_product_details():
     product_image = soup.select_one('#landingImage')['src']
     img = str.replace(product_image, "\r", "")
     img = str.replace(img, "\n", "")
-    img = '"' + img + '"'
-    path = os.getcwd()
-    output = open(path + "/imageData.txt", "w")
-    output.write(img)
+    img = '[1] "' + img + '"'
+    output = open("imageData.txt", "wb")
+    output.write(product_image)
     output.close()
 
     product_details = soup.select('.col1 td')

@@ -59,7 +59,7 @@
         <form class="search_form" action="{% url 'analyzer:analyze' %}" method="post" id="scrape">
             {% csrf_token %}
 
-            <div class="form-group" id="search_query" type="text">
+            <div class="form-group" id="search_query">
                 {{ form }}
                 <button id="search_button" type="submit"><span>Analyse</span></button>
             </div>

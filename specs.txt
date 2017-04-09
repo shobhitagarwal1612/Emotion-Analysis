@@ -1,32 +1,52 @@
- OS 
-Android, KitKat, Android^KitKat
- RAM 
-2 GB
+Brand
+Nikon
+Model
+1928
+Model Name
+AF Zoom Nikkor 70-300mm f/4-5.6G
+Model Year
+2013
 Item Weight
-141 g
+426 g
 Product Dimensions
-49.2 x 4.7 x 25.6 cm
+11.7 x 7.4 x 7.4 cm
 Item model number
-Moto E
- Wireless communication technologies 
-Bluetooth, WiFi Hotspot
- Connectivity technologies 
-GSM, (850/900/1800/1900 MHz), UMTS, 3G, (2100 MHz), WiFi
- Special features 
-Music Player,Video Player,FM Radio,GPS,Accelerometer,Proximity sensor,Ambient light sensor,E-mail,Dual SIM
- Device interface - primary 
-Touch Screen
- Other camera features 
-5MP
- Form factor
-Touchscreen
- Weight 
-140 Grams
- Colour 
-Black
- Battery Power Rating 
-1980
- Whats in the box 
-Handset, Battery, Charger, USB Cable, Headset, User Guide
+1928
+Additional Features
+Telephoto Zoom, 70-300 mm Focal Length, f/4.0-f/5.6, 13 Elements in 9 Groups, 1.5 mtr Filter
+Included Components
+Rear Lens Cap LF-1, Front lens cap LC-67
+Has Image Stabilization
+No
+Optical Zoom
+4.3 X
+Min Aperture
+45
+Min Focal Length
+70 Millimeters
+Batteries Included
+No
+Batteries Required
+No
+Speaker Diameter
+74 Millimeters
+Material
+Plastic barrel, plastic mount
+Form Factor
+n/a
+Device Type
+Camera lens system
+Lens Type
+Zoom lens
+Mounting Type
+Nikon
+Real Angle Of View
+34.33 Degrees
+Viewfinder Type
+Optical
+Has Auto Focus
+Yes
+Includes Rechargable Battery
+No
  
  

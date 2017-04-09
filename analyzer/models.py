@@ -85,7 +85,7 @@ class Amazon_Analyse(models.Model):
                     emotion = comments_sentiment[i]
 
                     spec_comments.append([comment, ratings[i], emotion])
-                    comments_list[spec].append((emotion, comment))
+                    comments_list[spec].append([emotion, comment])
 
             comments_list[spec].sort()
 

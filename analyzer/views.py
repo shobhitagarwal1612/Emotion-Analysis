@@ -77,11 +77,13 @@ class IndexView(View):
             else:
                 negative += 1
 
-        comments = [(key, comments[key]) for key in comments]
+        comments_list={}
+        for spec in list(comments):
+            comments_list[spec] = comments[spec]
 
         return render(request, 'result.html',
                       {'data': data,
-                       'comments': comments,
+                       'comments': comments_list,
                        'title': title,
                        'image': base64,
                        'form': form,

@@ -104,7 +104,7 @@
             <h3 id="pos"></h3>
             <hr/>
             <ul id="positive-comments">
-                <!-- javascript prints comments here by parsing JSON obj -->
+                <!-- javascript prints comments here by parsing Jcomments_list obj -->
             </ul>
         </div>
         <br>
@@ -112,7 +112,7 @@
             <h3 id="neg"></h3>
             <hr/>
             <ul id="negative-comments">
-                <!-- javascript prints comments here by parsing JSON obj -->
+                <!-- javascript prints comments here by parsing Jcomments_list obj -->
             </ul>
         </div>
         <br>
@@ -136,7 +136,7 @@
         displayChart(Math.round(sentiment, 2), $("#top_chart"));
     });
 
-    var obj = {{comments|safe}};
+    var comments_list = {{comments|safe}};
     //global variables
     var myChart;
 
@@ -203,12 +203,11 @@
     }
     function displayComments(heading) {
 
-
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                if (key == heading) {
-                    console.log(obj[key]);
-                    var comments = obj[key];
+        for (var key in comments_list) {
+            if (comments_list.hasOwnProperty(key)) {
+                if (key === heading) {
+                    console.log(comments_list[key]);
+                    var comments = comments_list[key];
                     //where to append lists
                     $("#pos").text("Positive Comments");
                     $("#neg").text("Negative Comments");
@@ -221,6 +220,7 @@
 
                     //appending loop
                     for (var i = 0; i < comments.length; i++) {
+                        console.log(comments)
                         var sentiment = comments[i][0]
                         if (sentiment === 0) {
                             $('<li/>')
@@ -272,7 +272,7 @@
                     var heading = response.heading;
                     var comments_spec = response.comments_spec;
 
-                    obj[heading] = comments_spec[heading];
+                    comments_list[heading] = comments_spec[heading];
 
                     var label = document.createElement("label");
                     var radio = document.createElement("input");

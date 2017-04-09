@@ -28,8 +28,8 @@ class IndexView(View):
             # name_obj = Amazon_Url.objects.create(url=form.cleaned_data['url'] )
             url = form.cleaned_data['url']
             print('Url is received')
-            q = Amazon_Scrape()
-            q.fun(url)
+            # q = Amazon_Scrape()
+            # q.fun(url)
             print('Url is', url)
 
             print("analyse : get function")
@@ -43,7 +43,7 @@ class IndexView(View):
 
             # getting image data
             imageFile = open("imageData.txt")
-            base64 = imageFile.readline()
+            base64 = imageFile.read()
             form = ScrapeForm()
             specs_list = []
             p = []
@@ -70,7 +70,7 @@ class IndexView(View):
 
             return render(request, 'result.html',
                           {'data': data,
-                           'comments': json.dumps(comments),
+                           'comments': comments,
                            'title': title,
                            'image': base64,
                            'form': form,
@@ -82,6 +82,7 @@ class IndexView(View):
                            }
                           )
 
+        product_url = "(No URL given)"
         product_url = request.POST.get('search_query', "")
         print("-------------" + product_url + "---------------")
-        return HttpResponse("Comments parsed " + product_url)
+        return HttpResponse("<h1>Error occurred while analyzing : " + product_url + "</h1>")

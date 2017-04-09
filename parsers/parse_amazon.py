@@ -144,7 +144,8 @@ def save_product_details():
     product_details = soup.select('.col1 td')
     output = open(os.getcwd() + "/specs.txt", "w")
     for row in product_details:
-        output.write(row.text + "\n")
+        if row != '':
+            output.write(row.text + "\n")
     output.close()
 
     print("details saved")

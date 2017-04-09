@@ -44,7 +44,6 @@ class IndexView(View):
             # getting image data
             imageFile = open("imageData.txt")
             base64 = imageFile.readline()
-            base64 = base64[3:]
             form = ScrapeForm()
             specs_list = []
             p = []

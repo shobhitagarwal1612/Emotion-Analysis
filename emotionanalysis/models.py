@@ -129,7 +129,7 @@ class Amazon_Analyse(models.Model):
 
     def parse_data(self):
         path = os.getcwd()
-        with open(path + 'amazon_data.json') as data_file:
+        with open(path + '/amazon_data.json') as data_file:
             data = json.load(data_file)
         comments = [data["reviews"][i]["review_text"] for i in range(len(data["reviews"]))]
         ratings = [data["reviews"][i]["review_rating"] for i in range(len(data["reviews"]))]

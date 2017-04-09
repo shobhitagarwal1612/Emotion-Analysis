@@ -1,0 +1,60 @@
+#cen {
+    background-color: #03a9f4;
+    color: white;
+    padding-bottom: 10px;
+}
+
+#radio-home {
+
+    width: 33.33333333%;
+    border: 1px solid #e9e9e9;
+    padding-top: 21px;
+    background-color: #68b3bc;
+    color: white;
+    border-radius: 15px;
+}
+
+#image {
+    padding-bottom: 100px;
+}
+
+.comments.positive {
+    border: 1px solid #e9e9e9;
+    background-color: #BDF5A8;;
+    color: black;
+    border-radius: 15px;
+}
+
+.comments.negative {
+    border: 1px solid #e9e9e9;
+    background-color: #DE5252;
+    color: antiquewhite;
+    border-radius: 15px;
+    padding-bottom: 25px;
+}
+
+.chart {
+    border: 1px solid #e9e9e9;
+    background-color: white;
+    border-radius: 15px;
+}
+
+table {
+    width: 97%;
+    color: black;
+    border-radius: 10px;
+
+}
+
+h1, h3 {
+    font-size: 24px;
+    padding-left: 21px;
+}
+
+.pdTab {
+    margin-left: 7px;
+    width: 100%;
+    display: none;
+
+}
+

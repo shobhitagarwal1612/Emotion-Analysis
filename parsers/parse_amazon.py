@@ -119,7 +119,7 @@ def start_requests(url):
         print('No more pages found')
         stop = True
 
-    if not stop and page_count < 4:
+    if not stop and page_count < 15:
         next_link = base_url + next_link
         start_urls.append(next_link)
     else:

@@ -35,7 +35,7 @@ service-identity==16.0.0
 setupfiles==0.0.0
 six==1.10.0
 sklearn==0.0
-Twisted==20.3.0
+Twisted==22.2.0
 w3lib==1.17.0
 yarl==0.9.8
 zope.interface==4.3.3

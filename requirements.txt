@@ -15,7 +15,7 @@ idna==2.2
 incremental==16.10.1
 lxml==4.6.5
 multidict==2.1.4
-nltk==3.4.5
+nltk==3.6.6
 numpy==1.12.1
 packaging==16.8
 parsel==1.1.0
